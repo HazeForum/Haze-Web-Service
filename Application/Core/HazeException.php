@@ -9,20 +9,30 @@ class HazeException extends Exception
 {
     private $ErrorMessage;
 
+    /**
+     * HazeException constructor.
+     * @param String $code
+     */
     public function __construct(String $code) {
 
         $this->ErrorMessage = ErrorLibrary::out($code);
 
-        self::CustomException($code);
+        self::CustomMessage($code);
         parent::__construct( $this->ErrorMessage );
 
     }
 
+    /**
+     * @return string
+     */
     public function __toString() {
         return __CLASS__ . ": {$this->ErrorMessage}. ";
     }
 
-    public static function CustomException($code) {
+    /**
+     * @param $code
+     */
+    public static function CustomMessage($code) {
         echo "
             <h2>An error has occurred. </h2>
             <h4>Code: [$code]</h4>
