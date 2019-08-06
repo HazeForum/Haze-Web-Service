@@ -12,9 +12,8 @@ class PathFinder
     {
         $path = DOCUMENT_ROOT . DS . self::Path . DS . $Endpoint;
 
-        if (!is_dir($path)) {
-            throw new HazeException( 'Ex00A');
-        }
+        if (!is_dir($path))
+            return Response::show(400, 'Ex00A');
 
     }
 
