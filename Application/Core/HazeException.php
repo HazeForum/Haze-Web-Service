@@ -34,9 +34,8 @@ class HazeException extends Exception
      */
     public static function CustomMessage($code) {
         echo "
-            <h2>An error has occurred. </h2>
-            <h4>Code: [$code]</h4>
-            <h5>For more details check our Error Library on https://hws.hazeforum.com</h5>
+            <h2>An error has occurred. [$code] </h2>
+            <h5 style='margin-top: -10px'>For more details check our Error Library on https://hws.hazeforum.com</h5>
         ";
     }
 }
