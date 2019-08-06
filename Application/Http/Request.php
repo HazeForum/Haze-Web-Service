@@ -75,8 +75,6 @@ class Request
 
         $Method = array_key_exists($Method, self::CustomMethods) ? $_REQUEST : ($Method == 'GET' ? $_GET : $_POST);
 
-        var_dump($_POST);
-
         foreach ($Params as $param):
 
             if ( !isset($Method[$param]) )
