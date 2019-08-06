@@ -6,15 +6,25 @@ use Core\HazeException;
 
 class PathFinder
 {
-    const Path = 'Endpoint';
+    const Path = 'Endpoints';
 
+    /**
+     * @param String $Endpoint
+     * @param String $Item
+     */
     public static function get(String $Endpoint, String $Item)
     {
-        $path = DOCUMENT_ROOT . DS . self::Path . DS . $Endpoint;
+        $path = DOCUMENT_ROOT . DS . self::Path . DS . $Endpoint . DS;
 
         if (!is_dir($path))
-            return Response::show(400, 'Ex00A');
+            return Response::error(400, 'Ex00A');
 
+        $file = $path . $Item . '.php';
+
+        if (!file_exists($file))
+            return Response::error(404, 'Ex01A');
+
+        require_once $file;
     }
 
 }

@@ -6,7 +6,22 @@ use Core\ErrorLibrary;
 
 class Response
 {
-    public static function show(Int $status, String $code)
+    /**
+     * @param String $message
+     * @param Int $status
+     */
+    public static function success(String $message, Int $status = 200) {
+        echo json_encode([
+            'status' => $status,
+            'result' => $message
+        ]);
+    }
+
+    /**
+     * @param Int $status
+     * @param String $code
+     */
+    public static function error(Int $status, String $code)
     {
         echo json_encode([
             'status' => $status,
