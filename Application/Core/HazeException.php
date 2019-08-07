@@ -13,9 +13,9 @@ class HazeException extends Exception
      * HazeException constructor.
      * @param String $code
      */
-    public function __construct(String $code) {
+    public function __construct(String $code, String $Custom = '') {
 
-        $this->ErrorMessage = ErrorLibrary::out($code);
+        $this->ErrorMessage = ErrorLibrary::out($code) . $Custom;
 
         self::CustomMessage($code);
         parent::__construct( $this->ErrorMessage );
