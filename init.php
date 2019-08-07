@@ -6,5 +6,3 @@ session_start();
 require 'Vendor/Autoload.php';
 
 Autoload::register();
-
-$System = new Core\System();
