@@ -2,8 +2,8 @@
 
 require 'init.php';
 
-header('Content-Type: application/json');
-
 $System = new Core\System();
+
+header('Content-Type: application/json');
 
 Http\Router::init(true);
