@@ -1,7 +1,7 @@
 <?php
+namespace Api;
 
 
-namespace Core\Api;
 use Core\ErrorLibrary;
 
 class Response
@@ -20,12 +20,14 @@ class Response
     /**
      * @param Int $status
      * @param String $code
+     * @param String $Additional
      */
-    public static function error(Int $status, String $code)
+    public static function error(Int $status, String $code, String $Additional = '')
     {
+        $ExtraInfos = (!empty($Additional) ? ": $Additional" : '');
         echo json_encode([
             'status' => $status,
-            'result' => ErrorLibrary::out($code)
+            'result' => ErrorLibrary::out($code) . $ExtraInfos
         ]);
     }
 

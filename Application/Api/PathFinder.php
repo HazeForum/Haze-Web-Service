@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Core\Api;
+namespace Api;
 use Core\HazeException;
 
 class PathFinder
