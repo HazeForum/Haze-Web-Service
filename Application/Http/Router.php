@@ -4,8 +4,8 @@
 namespace Http;
 
 
-use Core\Api\PathFinder;
-use Core\Api\Response;
+use Api\PathFinder;
+use Api\Response;
 
 class Router
 {

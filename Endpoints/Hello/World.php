@@ -1,2 +1,2 @@
 <?php
-Core\Api\Response::success('Available');
+Api\Response::success('Available');
