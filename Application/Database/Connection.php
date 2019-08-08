@@ -37,8 +37,6 @@ class Connection
 
         }
 
-
-
     }
 
     public static function drivers_is_ok()
