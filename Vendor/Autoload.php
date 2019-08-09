@@ -19,14 +19,21 @@ class Autoload
 
                 $filename = DOCUMENT_ROOT . DS . $path . DS . $class_name.".php";
 
-                if ( !file_exists( $filename ) ){
+                if ( !file_exists( $filename ) )
+                {
 
                     $filename = str_replace('\\', '/', $filename);
 
-                    if ( file_exists( $filename ) ) {
+                    if ( file_exists( $filename ) )
+                    {
+                        require_once $filename;
 
+                        return true;
                     }
-                } else {
+
+                } 
+                else
+                {
 
                     require_once $filename;
 
