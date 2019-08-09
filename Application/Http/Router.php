@@ -4,45 +4,83 @@
 namespace Http;
 
 
-use Api\PathFinder;
 use Api\Response;
+use Api\PathFinder;
+
 
 class Router
 {
-    /**
-     * @param bool $Api_Router
-     */
-    public static function init(Bool $Api_Router = false)
+
+    public static function init()
     {
-        if (!isset($_GET['r']))
-            return Response::success('Running');
+        if ( Request::is_getted(['r'], 'GET') )
+        {
 
-        $Routes = self::mount_route($_GET['r']);
+            if (self::sanitize($_GET['r']))
+            {
+                $Route = self::generate( $_GET['r'] );
 
-        ( $Api_Router ? self::use_api_router( $Routes[0], $Routes[1]) :  self::use_layout_router() );
+                PathFinder::get($Route[0], $Route[1]);
 
+                return true;
+            }
+
+            response::error(500, 'Não foi possível obter a rota');
+
+        }
+        else
+        {
+            response::success('Running');
+            return true;
+        }
+
+        return false;
     }
 
     /**
-     * @param String $Route
+     * @param String $route
      * @return array
      */
-    public static function mount_route(String $Route)
+    public static function generate(String $route)
     {
-        return explode('/', $Route);
-    }
 
-    public static function use_layout_router(Array $Routes)
-    {
+        $dirs = explode('/', $route);
+
+        if (count($dirs) < 2) {
+
+            response::error(500, 'Metódo inválido');
+            exit;
+
+        }
+
+        $Item = $dirs[ count($dirs) -1 ]; # Item of endpoint
+
+        $Endpoint = '';
+
+        # -2 pois o último é o item do endpoint
+        $endpoint_count = count($dirs) - 2;
+
+        for ($i = 0; $i <= $endpoint_count; $i++):
+
+            $Endpoint .= $dirs[$i] . ( $i == $endpoint_count ? '' : '/');
+
+        endfor;
+
+        return [ $Endpoint, $Item ];
 
     }
 
     /**
-     * @param String $Endpoint
-     * @param String $Item
+     * @param String $route
+     * @return bool
      */
-    public static function use_api_router(String $Endpoint, String $Item)
+    public static function sanitize(String $route)
     {
-        PathFinder::get($Endpoint, $Item);
+
+        $route = filter_var($route, FILTER_SANITIZE_STRING);
+
+        return is_string($route);
+
     }
+
 }

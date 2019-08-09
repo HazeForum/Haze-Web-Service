@@ -1,7 +1,7 @@
 <?php
+
+
 namespace Api;
-
-
 use Core\ErrorLibrary;
 
 class Response
@@ -24,10 +24,9 @@ class Response
      */
     public static function error(Int $status, String $code, String $Additional = '')
     {
-        $ExtraInfos = (!empty($Additional) ? ": $Additional" : '');
         echo json_encode([
             'status' => $status,
-            'result' => ErrorLibrary::out($code) . $ExtraInfos
+            'result' => ErrorLibrary::out($code) .  (!empty($Additional) ? " $Additional" : '')
         ]);
     }
 

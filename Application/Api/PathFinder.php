@@ -22,7 +22,7 @@ class PathFinder
         $file = $path . $Item . '.php';
 
         if (!file_exists($file))
-            return Response::error(404, 'Ex01A');
+            return Response::error(404, 'Ex01A', "On $Endpoint");
 
         require_once $file;
     }

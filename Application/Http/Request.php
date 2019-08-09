@@ -7,9 +7,8 @@ namespace Http;
 class Request
 {
     const CustomMethods = [
-        'PUT',
-        'DELETE',
-        'CREATE'
+      'PUT',
+      'DELETE'
     ];
 
     /**
@@ -69,7 +68,9 @@ class Request
     public static function is_getted(Array $Params, String $Method = 'GET')
     {
 
-        if (!self::validate_method($Method))
+        $Method = strtoupper($Method);
+
+        if ($_SERVER['REQUEST_METHOD'] <> $Method)
             return false;
 
         $Method = array_key_exists($Method, self::CustomMethods) ? $_REQUEST : ($Method == 'GET' ? $_GET : $_POST);

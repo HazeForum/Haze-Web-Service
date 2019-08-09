@@ -5,4 +5,3 @@
 .idea/php.xml
 .idea/vcs.xml
 test-service.php
-*.http
