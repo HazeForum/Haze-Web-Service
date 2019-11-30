@@ -3,20 +3,18 @@
 
 namespace Database;
 
-
-use Core\HazeException;
 use PDO;
 use PDOException;
 
 class Connection
 {
-    private $Connection;
+    protected $Connection;
     private const INFO = CONFIG_GLOBAL['Connection'];
 
     public function __construct() {
 
         if (!self::drivers_is_ok())
-            throw new HazeException('CxP00');
+            return false;
 
         if (!self::infos_are_ok())
             return false;
@@ -33,12 +31,25 @@ class Connection
         }
         catch (PDOException $e)
         {
-            throw new HazeException('Cx000', $e->getMessage());
+
+            echo '<h4> Erro ao se conectar: ' . $e->getMessage() . '</h4>';
+
+            exit;
 
         }
 
     }
 
+    /**
+     * @return PDO
+     */
+    public function getConn(){
+        return $this->Connection;
+    }
+
+    /**
+     * @return bool
+     */
     public static function drivers_is_ok()
     {
         if (extension_loaded('pdo'))
@@ -47,13 +58,18 @@ class Connection
         return false;
     }
 
+    /**
+     * @return bool
+     */
     public static function infos_are_ok()
     {
         if ( self::INFO['host'] == '0.0.0.0' )
             return false;
 
         if ( empty(self::INFO['database']) )
-            throw new HazeException('CxP1A');
+            return false;
+
+        return true;
     }
 
 }
